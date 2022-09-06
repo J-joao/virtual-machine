@@ -13,6 +13,7 @@ this virtual machine uses a **32 bit memory** with **16 bit addresses**
 
 example:
 ``` c
+// address    contents
 mem[0x0000] = 00030001;
 mem[0x0001] = 00010000;
 ``` 
@@ -26,6 +27,27 @@ mem[0x0000] = 000d1112;   // jmp 0x1112
 ``` 
 with *000d* being the value for the opcode JMP and *1112* as being the location in memory to where to jump
 
+# § registers
+``` c
+// registers
+struct reg {
+    int32_t pc, cir, mar, mbr, acc;
+} reg;
+```
+
+this virtual machine has 5 registers.
+- pc = program counter
+- cir = current instruction register
+- mar = memory address register
+- acc = accumulator
+
+there is also an additional "register" that just points out whether the machine is running or not 
+``` c
+bool running = true;
+```
+>  it is deffined to be true by default
+
 # § instructions 
 the following table represents the value, mnemonic and effect of each instruction
+
 <img src="img/table.jpg">
