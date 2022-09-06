@@ -25,3 +25,7 @@ because instructions have **16 bits for opcode** and **16 bits for operand**, th
 mem[0x0000] = 000d1112;   // jmp 0x1112
 ``` 
 with *000d* being the value for the opcode JMP and *1112* as being the location in memory to where to jump
+
+# § instructions 
+the following table represents the value, mnemonic and effect of each instruction
+<img src="img/table.jpg">
