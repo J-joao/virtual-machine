@@ -10,7 +10,7 @@ void fetch() {
     reg.pc++;
 }
 
-Instruction_t parse_instruction(uint32_t address, uint32_t raw_instruction) {
+Instruction_t parse_instruction(uint16_t address, uint32_t raw_instruction) {
     union i32 i; i.v = (int32_t)mem[address];
 
     Instruction_t parsed_instruction = {
