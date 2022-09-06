@@ -59,7 +59,7 @@ void fetch();
 /* this function parses a raw instruction into address/opcode/operand
  *  @param address: address in memory
  *  @param raw_instruction: contents of that address in memory */
-Instruction_t parse_instruction(uint32_t address, uint32_t raw_instruction);
+Instruction_t parse_instruction(uint16_t address, uint32_t raw_instruction);
 
 /* this function decodes the opcode and executes some action based on it
  * @param instruction: struct containing information about what needs to be done */
