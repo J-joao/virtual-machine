@@ -95,7 +95,7 @@ bool running = true;
 
 ### JMP
 - JMP significa "Jump" - saltar 
-- recebe um endereço como parâmetro and sets the PC to point to that address
+- recebe um endereço como parâmetro e aponta o PC para este endereço
 ### JGE
 - JGE significa "Jump if Greater or Equal" - saltar se maior ou igual 
 - recebe um endereço como parâmetro e aponta o PC para o valor do acumulador se o valor do acumulador for maior ou igual a 0
