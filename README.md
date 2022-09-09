@@ -8,28 +8,28 @@
 int32_t mem[INT16_MAX];
 ``` 
 
-|  memory structure  | range (in hex) |
-|--------------------|----------------|
-| data memory        | 0000  - 1110   |
-| instruction memory | 1110  - ffff   |
+|  estrutura da memória  | tamanho (hex)  |
+|------------------------|----------------|
+| memória de dados       | 0000  - 1110   |
+| memória de instruções  | 1110  - ffff   |
 
-this virtual machine uses a **32 bit memory** with **16 bit addresses**
+essa maquina virtual usa uma **memória de 32 bits** e **16 bits para endereços**
 
-example:
+exemplo:
 ``` c
 // address    contents
 mem[0x0000] = 00030001;
 mem[0x0001] = 00010000;
 ``` 
-addresses can range from 0000 to ffff while the contents of each address can range from 00000000 to ffffffff
+os endereços podem ir de 0000 à ffff enquanto seus conteúdos podem ir de 00000000 à ffffffff
 
-### why are addresses organized like this?
-because instructions have **16 bits for opcode** and **16 bits for operand**, thus, an instruction like *jmp 1112* can only take 16 bits as parameter, and can be represented in memory as:
+### por que os endereços são organizados assim?
+porque as instruções usam **16 para o opcode** e **16 bits para o operando**, portanto, uma instrução tipo: *jmp 1112* pode apenas usar 16 bits como parâmetro, e pode ser representada na memória da seguinte maneira:
 
 ``` c
 mem[0x0000] = 000d1112;   // jmp 0x1112
 ``` 
-with *000d* being the value for the opcode JMP and *1112* as being the location in memory to where to jump
+sendo *000d* o valor do opcode JMP e *1112* sendo seu parâmetro 
 
 # § registers
 ``` c
