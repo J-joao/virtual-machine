@@ -1,20 +1,23 @@
 #ifndef __ASSETS_H
 #define __ASSETS_H
 
+//
+// as 3 macros abaixo servem para manipular bits individuais
+//
 #define SET_BIT(BF, N) BF |= ((uint32_t)0x00000001 << N)
 #define CLR_BIT(BF, N) BF &= ~((uint32_t)0x00000001 << N)
 #define IS_BIT_SET(BF, N) ((BF >> N) & 0x1)
 
 #define ERRORMSG "[\e[1;31mERROR\e[0m]: "
 
-// address in memory | opcode (last 16 bits) | operand (fist 16 bits)
+// endereço na memória | opcode (ultimos 16 bits) | operando (primeiros 16 bits)
 typedef struct Instruction_t {
-    uint32_t address;
+    uint16_t address;
     uint16_t opcode;
     uint16_t operand;
 } Instruction_t;
 
-// split an uint32_t into 2x uint16_t 
+// esse union divide um uint32_t em dois uint16_t 
 union i32 {
     uint32_t v;
     struct {
@@ -23,7 +26,7 @@ union i32 {
     } n;
 };
 
-// instructions
+// instruções
 enum {
     LDA  = 1, 
     STO  = 2, 
@@ -39,30 +42,31 @@ enum {
     SHR  = 12,
     JMP  = 13, 
     JGE  = 14, 
-    JNE  = 15, 
-    HALT = 16
+    JNE  = 15,
+    JAC  = 16,
+    HALT = 17
 };
 
-// registers
+// registradores
 struct reg {
     int32_t pc, cir, mar, mbr, acc;
 } reg;
 
-// memory
+// memória
 int32_t mem[INT16_MAX];
 
 bool running = true;
 
-/* this function fetches the instruction from memory */
+/* essa função busca a instrução na memória */
 void fetch();
 
-/* this function parses a raw instruction into address/opcode/operand
- *  @param address: address in memory
- *  @param raw_instruction: contents of that address in memory */
+/* essa função parcela a instrução "crua" em: endereço/opcode/operando
+ *  @param address: endereço da instrução na memória
+ *  @param raw_instruction: instrução "crua" (valor do endereço de memória passado anteriormente) */
 Instruction_t parse_instruction(uint16_t address, uint32_t raw_instruction);
 
-/* this function decodes the opcode and executes some action based on it
- * @param instruction: struct containing information about what needs to be done */
+/* essa função decodifica a instrução e executa uma ação  baseada em seu valor
+ * @param instruction: struct contendo opcode, operando e endereço */
 void execute(Instruction_t instruction);
 
 #endif //__ASSETS_H

@@ -15,8 +15,8 @@ Instruction_t parse_instruction(uint16_t address, uint32_t raw_instruction) {
 
     Instruction_t parsed_instruction = {
         .address = address,
-        .opcode  = i.n.n2,      // instruction's last 16 bits
-        .operand = i.n.n1       // instruction's first 16 bits
+        .opcode  = i.n.n2,      // ultimos 16 bits da instrução
+        .operand = i.n.n1       // primeiros 16 bits da instrução
     };
     return parsed_instruction;
 }
@@ -73,12 +73,12 @@ void execute(Instruction_t instruction) {
             break;
         case JMP:
             printf(" => jmp %04x\n", instruction.operand);
-            reg.pc = instruction.operand;               // pc = mem[S]
+            reg.pc = instruction.operand;               // pc = S
             break;
         case JGE: {
             if (reg.acc >= 0) {
                 printf(" => jge %04x\n", instruction.operand);
-                reg.pc = instruction.operand;           // if acc >= 0; pc = mem[S]
+                reg.pc = instruction.operand;           // if acc >= 0; pc = S
                 break;
             }
             break;
@@ -86,21 +86,26 @@ void execute(Instruction_t instruction) {
         case JNE: {
             if (reg.acc != 0) {
                 printf(" => jne %04x\n", instruction.operand);
-                reg.pc = instruction.operand;           // if acc != 0; pc = mem[S]
+                reg.pc = instruction.operand;           // if acc != 0; pc = S
                 break;
             }
             break;
         }
+        case JAC:
+            printf(" => jac\n");
+            reg.pc = reg.acc;                           // pc = ACC
+            break;
         case HALT:
             printf(" => halt\n");
             running = false;
             break;
 
         case 0:
-            printf(" => "ERRORMSG"blank memory space\n");
+            printf(" => "ERRORMSG"address[%x] -> blank memory space\n", instruction.address);
             exit(EXIT_FAILURE);
         default:
-            printf(" => "ERRORMSG"unknown instruction\n");
+            printf(" => "ERRORMSG"instruction %x%x at [%x] -> unknown instruction\n", 
+                   instruction.opcode, instruction.operand, instruction.address);
             exit(EXIT_FAILURE);
     }
 }
@@ -125,14 +130,16 @@ int main(int argc, char const *argv[]) {
     mem[0x111e] = 0x000e111f;   // jge 111f
     mem[0x111f] = 0x00010001;   // lda 0000
     mem[0x1120] = 0x000f1121;   // jne 1121 
-    mem[0x1121] = 0x00100000;   // halt     
+    mem[0x1121] = 0x00010000;   // lda 0000
+    mem[0x1122] = 0x00100000;   // jac
+    mem[0x2000] = 0x00110000;   // halt     
     
     reg.pc = 0x1111;
     
     while (running) {
-        // make sure pc is in instruction memory space
+        // verificar se o PC esta na memória de instruções
         if (reg.pc < 0x1111 || reg.pc > 0xffff) {
-            printf("\n"ERRORMSG"program counter = %x\n", reg.pc);
+            printf("\n"ERRORMSG"inappropriate memory address | pc = %x\n", reg.pc);
             exit(EXIT_FAILURE);
         }
         // fetch
@@ -145,7 +152,7 @@ int main(int argc, char const *argv[]) {
                reg.pc, reg.acc, reg.mar, mem[reg.mar], instruction.opcode, instruction.operand);
         
         // execute
-        execute(instruction);
+        execute(instruction, reg.mar);
     }
 
     return 0;
