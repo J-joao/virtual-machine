@@ -223,12 +223,3 @@ bool running = true;
 <img src="img/table.jpg">
 
 </p></details>
-
-usage:
-```
-gcc vm.c -o vm
-```
-
-```
-./vm <file> <flags>(optional)
-```
