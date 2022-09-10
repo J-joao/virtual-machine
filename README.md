@@ -54,13 +54,13 @@ bool running = true;
 # § instruções 
 
 ### LDA
-- LDA significa "Load Accumulator" - carregar acumulador
+- LDA significa "Load Accumulator"
 - recebe um endereço como parâmetro e carrega o acumulador com o valor que estiver naquele endereço 
 ### STO
-- STO significa "Store" - armazenar
-- recebe um endereço como parâmetro e carrega o acumulador com o valor neste endereço 
+- STO significa "Store"
+- recebe um endereço como parâmetro e carrega este endereço com o valor do acumulador 
 ### CLA
-- CLA significa "Clear Accumulator" - limpar acumulador
+- CLA significa "Clear Accumulator"
 - não recebe nenhum parâmetro e limpa o registrador, deixando seu valor igual a 0
 
 ### ADD
@@ -88,22 +88,22 @@ bool running = true;
 
 ### SHL
 - SHL significa "Shift Left" - deslocar para a esquerda
-- recebe um endereço como parâmetro e deslocamento pra esquerda o acumulador com o valor deste endereço 
+- recebe um endereço como parâmetro e desloca para a esquerda o acumulador com o valor deste endereço 
 ### SHR
 - SHR significa "Shift Right" - deslocar para a direita
-- recebe um endereço como parâmetro and desloca pra direira o acumulador com o valor deste endereço 
+- recebe um endereço como parâmetro e desloca para a direira o acumulador com o valor deste endereço 
 
 ### JMP
-- JMP significa "Jump" - saltar 
+- JMP significa "Jump"
 - recebe um endereço como parâmetro e aponta o PC para este endereço
 ### JGE
-- JGE significa "Jump if Greater or Equal" - saltar se maior ou igual 
-- recebe um endereço como parâmetro e aponta o PC para o valor do acumulador se o valor do acumulador for maior ou igual a 0
+- JGE significa "Jump if Greater or Equal"
+- recebe um endereço como parâmetro e aponta o PC para este endereço se o valor do acumulador for maior ou igual a 0
 ### JNE
-- JNE significa "Jump if Not Equal" - saltar se não for igual
-- recebe um endereço como parâmetro e aponta o PC para o valor do acumulador se o valor do acumulador for diferente de 0
+- JNE significa "Jump if Not Equal"
+- recebe um endereço como parâmetro e aponta o PC para este endereço se o valor do acumulador for diferente de 0
 ### JAC
-- JAC significa "Jump Accumulator" - saltar para o acumulador 
+- JAC significa "Jump Accumulator"
 - não recebe nenhum parâmetro e aponta o PC para o valor do acumulador
 
 <img src="img/table.jpg">
