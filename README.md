@@ -24,7 +24,7 @@ mem[0x0001] = 00010000;
 os endereços podem ir de 0000 à ffff enquanto seus conteúdos podem ir de 00000000 à ffffffff
 
 ### por que os endereços são organizados assim?
-porque as instruções usam **16 para o opcode** e **16 bits para o operando**, portanto, uma instrução tipo: *jmp 1112* pode apenas usar 16 bits como parâmetro, e pode ser representada na memória da seguinte maneira:
+porque as instruções usam **16 para o opcode** tendo **16 bits para o operando**, portanto, uma instrução tipo: *jmp 1112* pode apenas usar 16 bits como parâmetro, e pode ser representada na memória da seguinte maneira:
 
 ``` c
 mem[0x0000] = 000d1112;   // jmp 0x1112
